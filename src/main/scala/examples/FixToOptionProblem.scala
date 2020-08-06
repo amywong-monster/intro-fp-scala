@@ -12,4 +12,7 @@ object FixToOptionProblem {
       case PartitionByMonth(month) => s"Partition by ${month} month"
       case PartitionByYear(year) =>  s"Partition by ${year} year"
     }
+
+  partitionPeriod(NoPartition)
+  partitionPeriod(PartitionByMonth("jan"))
 }
