@@ -6,7 +6,7 @@ object EitherUsage {
   case object Socialist extends Party
   case object Liberal extends Party
 
-  def func(name: String, eligibleParty: Either[String, Party]): String =
+  def commentOnCandidate(name: String, eligibleParty: Either[String, Party]): String =
     eligibleParty match {
       case Left(err) => s"$name is not eligible for election because $err"
       case Right(Socialist) => s"$name is leftist"
