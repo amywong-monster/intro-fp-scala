@@ -5,14 +5,17 @@ object OptionSequencingExample {
   def isStringAllLower(v: String): Boolean =
     v.toLowerCase == v
 
-  //  scala> (Some("abC"): Option[String]).map(isStringAllLower)
-  //  val res2: Option[Boolean] = Some(false)
-  //
-  //  scala> (Some("abc"): Option[String]).map(isStringAllLower)
-  //  val res3: Option[Boolean] = Some(true)
-  //
-  //  scala> (None: Option[String]).map(isStringAllLower)
-  //  val res4: Option[Boolean] = None
+//  scala> val opt = Option("abC")
+//  val opt: Option[String] = Some(abC)
+//
+//  scala> opt.map(isStringAllLower)
+//  val res3: Option[Boolean] = Some(false)
+//
+//  scala> Option("abc").map(isStringAllLower)
+//  val res4: Option[Boolean] = Some(true)
+//
+//  scala> None.map(isStringAllLower)
+//  val res5: Option[Boolean] = None
 
   def sequenceComputation(intOpt: Option[Int]): Option[Boolean] =
     intOpt.flatMap(dividsor =>
