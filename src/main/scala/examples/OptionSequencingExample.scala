@@ -43,12 +43,20 @@ object OptionSequencingExample {
   //  val res3: Option[Boolean] = None
 
   // same as the above implementaiton
-  // scala compiler will de-sugar it back to flatMap and map before compilation
+  // scala compiler will de-sugar it to `flatMap` and `map` before compilation
   def sequenceComputationBySugar(intOpt: Option[Int]): Option[Boolean] =
     for {
-      quotient <- intOpt
-      flag = isStringAllLower(convertToString(quotient))
+      divisor <- intOpt // intOpt is a value wrapped by Option, therefore it can use the arrow to "retrieve" the value inside
+      quotient <- division(divisor, 1000)
+      flag = isStringAllLower(convertToString(quotient)) // return type is not wrapped by Option, therefore only `=` is needed
     } yield flag
+  // sidenote: alternatively, it can be written as
+//    for {
+//      divisor <- intOpt
+//      quotient <- division(divisor, 1000)
+//    } yield isStringAllLower(convertToString(quotient))
+    // `isStringAllLower(convertToString(quotient))` return type is not wrapped by Option, it can be put after `yield`
+
 
   def division(dividsor: Int, n: Int): Option[Int] =
     if (dividsor == 0) None else Some(n / dividsor)
