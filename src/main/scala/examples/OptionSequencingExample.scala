@@ -1,72 +1,36 @@
 package examples
 
+import examples.CommonFuncs.convertToString
+import examples.Types.LowerCaseEvenNumber
+
 object OptionSequencingExample {
 
-  def isStringAllLower(v: String): Boolean =
-    v.toLowerCase == v
+  // try input None, Some(0), Some(166), Some(250), Some(300), Some(400) to see what will the result look like
+  def computation(intOpt: Option[Int]): Option[LowerCaseEvenNumber] =
+    intOpt.flatMap { n =>
+      divideOneThousand(n).flatMap { quotient =>
+        evenNumber(quotient).flatMap { n =>
+          val str = convertToString(n)
+          onlyForAllLowerCase(n, str)
+        }
+      }
+    }
 
-//  scala> val opt = Option("abC")
-//  val opt: Option[String] = Some(abC)
-//
-//  scala> opt.map(isStringAllLower)
-//  val res3: Option[Boolean] = Some(false)
-//
-//  scala> Option("abc").map(isStringAllLower)
-//  val res4: Option[Boolean] = Some(true)
-//
-//  scala> None.map(isStringAllLower)
-//  val res5: Option[Boolean] = None
-
-  def sequenceComputation(intOpt: Option[Int]): Option[Boolean] =
-    intOpt.flatMap(dividsor =>
-      division(dividsor, 1000)
-    ).map(quotient =>
-      convertToString(quotient) // sidenote: `quotient` can be omitted s.t. it can be written as `map(convertToString)`
-    ).map(isStringAllLower)
-  // sidenote: implementaiton can be simplified as
-  //    intOpt.flatMap(dividsor =>
-  //      division(dividsor, 1000)
-  //    ).map(
-  //      convertToString andThen isStringAllLower
-  //    )
-
-  //  scala> sequenceComputation(Some(999))
-  //  val res0: Option[Boolean] = Some(true)
-  //
-  //  scala> sequenceComputation(Some(0))
-  //  val res1: Option[Boolean] = None
-  //
-  //  scala> sequenceComputation(Some(9))
-  //  val res2: Option[Boolean] = Some(false)
-  //
-  //  scala> sequenceComputation(None)
-  //  val res3: Option[Boolean] = None
-
-  // same as the above implementaiton
-  // scala compiler will de-sugar it to `flatMap` and `map` before compilation
-  def sequenceComputationBySugar(intOpt: Option[Int]): Option[Boolean] =
+  def computationBySugar(intOpt: Option[Int]): Option[LowerCaseEvenNumber] =
     for {
-      divisor <- intOpt // intOpt is a value wrapped by Option, therefore it can use the arrow to "retrieve" the value inside
-      quotient <- division(divisor, 1000)
-      flag = isStringAllLower(convertToString(quotient)) // return type is not wrapped by Option, therefore only `=` is needed
-    } yield flag
-  // sidenote: alternatively, it can be written as
-//    for {
-//      divisor <- intOpt
-//      quotient <- division(divisor, 1000)
-//    } yield isStringAllLower(convertToString(quotient))
-    // `isStringAllLower(convertToString(quotient))` return type is not wrapped by Option, it can be put after `yield`
+      n        <- intOpt // intOpt is a value wrapped by Option, therefore it can use the arrow to "retrieve"
+      quotient <- divideOneThousand(n)
+      even     <- evenNumber(quotient)
+      str = convertToString(even) // return value not wrapped by Option, therefore use equal sign
+      result   <- onlyForAllLowerCase(even, str)
+    } yield result
 
+  def divideOneThousand(dividsor: Int): Option[Int] =
+    if (dividsor == 0) None else Some(1000 / dividsor)
 
-  def division(dividsor: Int, n: Int): Option[Int] =
-    if (dividsor == 0) None else Some(n / dividsor)
+  def evenNumber(n: Int): Option[Int] =
+    if (n % 2 == 0) Some(n) else None
 
-  val convertToString: Int => String = {
-    case 0 => "zero"
-    case 1 => "one"
-    case 2 => "two"
-    case 3 => "three"
-    case 4 => "four"
-    case _ => "I give up"
-  }
+  def onlyForAllLowerCase(quotient: Int, v: String): Option[LowerCaseEvenNumber] =
+    if (v.toLowerCase == v) Some(LowerCaseEvenNumber(quotient, v)) else None
 }
