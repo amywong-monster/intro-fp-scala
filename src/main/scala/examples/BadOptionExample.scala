@@ -8,9 +8,9 @@ object BadOptionExample {
 
   def partitionPeriod(p: Partition, month: Option[String], year: Option[String]): String =
     p match {
-      case NoPartition => "There is no partition"
+      case NoPartition      => "There is no partition"
       case PartitionByMonth => s"Partition by ${month.get} month"
-      case PartitionByYear =>  s"Partition by ${year.get} year"
+      case PartitionByYear  => s"Partition by ${year.get} year"
     }
 
   def exampleCall(): String = {

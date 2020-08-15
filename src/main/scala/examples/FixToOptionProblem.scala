@@ -8,9 +8,9 @@ object FixToOptionProblem {
 
   def partitionPeriod(p: Partition): String =
     p match {
-      case NoPartition => "There is no partition"
+      case NoPartition             => "There is no partition"
       case PartitionByMonth(month) => s"Partition by ${month} month"
-      case PartitionByYear(year) =>  s"Partition by ${year} year"
+      case PartitionByYear(year)   => s"Partition by ${year} year"
     }
 
   partitionPeriod(NoPartition)
