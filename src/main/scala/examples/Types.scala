@@ -11,19 +11,22 @@ object Types {
     dbUrl: String
   )
 
-  case class EndpointResult1(v: String)
+  case class Result1(v: String)
 
-  case class EndpointResult2(v: String)
+  case class Result2(v: String)
 
-  case class EndpointResult3(v: String)
+  case class Result3(v: String)
 
-  case class EndpointResult4(v: String)
+  case class Result4(v: String)
+
+  case class Result5(v: String)
 
   case class UserDetail(
     userName: String,
-    result1: EndpointResult1,
-    result2: EndpointResult2,
-    result3: EndpointResult3,
-    result4: EndpointResult4
+    result1: Result1,
+    result2: Result2,
+    result3: Result3,
+    result4: Result4,
+    result5: Result5
   )
 }
