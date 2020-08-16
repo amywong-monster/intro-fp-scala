@@ -11,6 +11,14 @@ object Types {
     dbUrl: String
   )
 
+  val cfg = Configuration(
+    "http://localhost:8080/url1",
+    "http://localhost:8080/url2",
+    "http://localhost:8080/url3",
+    "http://localhost:8080/url4",
+    "jdbc:postgresql://localhost:5432/postgres"
+  )
+
   case class Result1(v: String)
 
   case class Result2(v: String)
