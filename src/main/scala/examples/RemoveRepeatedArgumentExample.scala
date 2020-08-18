@@ -26,7 +26,7 @@ object RemoveRepeatedArgumentExample {
   def createUserDetails(r1: Result1, r2: Result2, r3: Result3, r4: Result4): Reader[UserDetail] =
     Reader(cfg => UserDetail(s"Simon PJ found from ${cfg.dbUrl}", r1, r2, r3, r4))
 
-  val finalReader: Reader[UserDetail] =
+  val readerForFinalResult: Reader[UserDetail] =
     for {
       r1         <- createResult1
       r2         <- createResult2(r1)
@@ -35,7 +35,7 @@ object RemoveRepeatedArgumentExample {
       userDetail <- createUserDetails(r1, r2, r3, r4)
     } yield userDetail
 
-  val result = finalReader.run(Types.cfg)
+  val result = readerForFinalResult.run(Types.cfg)
 
 //  scala> RemoveRepeatedArgumentExample.result
 }
