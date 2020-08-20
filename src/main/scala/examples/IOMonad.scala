@@ -3,7 +3,7 @@ package examples
 import zio.{ UIO => IO }
 
 object SideEffectExample {
-  lazy val print_ = println("hey!")
+  val print_ = println("hey!")
   def print3Times(): Unit = {
     print_
     print_
