@@ -2,7 +2,7 @@ package examples
 
 import examples.Types.{ Configuration, Result1, Result2, Result3, Result4, UserDetail }
 
-object RemoveRepeatedArgumentExample {
+object RemoveRepeatedArgument {
   // the 2 Monad features
   // A => M[A]
   // M[A] => (A => M[B]) => M[B]
