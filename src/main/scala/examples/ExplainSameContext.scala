@@ -24,7 +24,7 @@ object ExplainSameContext {
 //    origEither.flatMap { v1 =>
 //      Right(s"$v1, execute using the same context Either[Throwable, ?]")
 //    }.flatMap { _ =>
-//      Left("This time the context is Either[String, ?], different from origEither's, therefore not compiles")
+// Left("This time the context is Either[String, ?], different from origEither's, therefore not compiles")
 //    }
 
   // compiles
@@ -34,6 +34,10 @@ object ExplainSameContext {
     }.flatMap { _ =>
       Left(new Exception("execute using the same context Either[Throwable, ?]"))
     }.flatMap { _ =>
-      Left(new Exception("Although different error message from last one, still same context Either[Throwable, ?]"))
+      Left(
+        new Exception(
+          "Although different error message from last one, still same context Either[Throwable, ?]"
+        )
+      )
     }
 }
